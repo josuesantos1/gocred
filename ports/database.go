@@ -9,6 +9,7 @@ import (
 type Database interface {
 	Query(query string, args ...interface{}) (*sql.Rows, error)
 	Exec(query string, args ...interface{}) (sql.Result, error)
+	QueryRow(query string, args ...interface{}) *sql.Row
 }
 
 type Postgres struct {
@@ -34,4 +35,8 @@ func (p *Postgres) Query(query string, args ...interface{}) (*sql.Rows, error) {
 
 func (p *Postgres) Exec(query string, args ...interface{}) (sql.Result, error) {
 	return p.db.Exec(query, args...)
+}
+
+func (p *Postgres) QueryRow(query string, args ...interface{}) *sql.Row {
+	return p.db.QueryRow(query, args...)
 }
